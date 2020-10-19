@@ -1,0 +1,9 @@
+{
+    "name": "our-family",
+    "version": "1.0.0",
+    "description": "Our family's homepage",
+    "author": "ase444ka",
+    "devDependencies": {
+        "webpack": "^5.1.3"
+    }
+}
