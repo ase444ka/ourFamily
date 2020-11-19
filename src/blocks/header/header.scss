@@ -1,0 +1,21 @@
+.header {
+    background-color: chocolate;
+    display: flex;
+    padding: 2rem 0 10rem 0;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-family: 'Alegreya Sans';
+    font-weight: 500;
+    &__title {
+        margin: 0;
+        text-transform: uppercase;
+        font-size: 4rem;
+    }
+    &__slogan {
+        margin: 0;
+        line-height: 0.6;
+        font-size: 2rem;
+        letter-spacing: 0.192em;
+    }
+}
