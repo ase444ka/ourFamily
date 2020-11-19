@@ -4,4 +4,5 @@ function requireAll(requireContext) {
 
 requireAll(require.context('Fonts', true, /\.css$/)); 
 import './style.css';
+requireAll(require.context('Blocks', true, /\.s?css$/)); 
 requireAll(require.context('Blocks', true, /\.js$/)); 
