@@ -12,6 +12,18 @@ function checkSiblings() {
         slideShow.prepend(slideShow.lastElementChild);
     }
 }
+function checkPrev() {
+    if (activeSlide.previousElementSibling && !activeSlide.previousElementSibling.previousElementSibling) {
+        slideShow.prepend(slideShow.lastElementChild);
+        slideShow.style.transition = 'none';
+        slideCalc();
+    }
+    if (activeSlide.nextElementSibling && !activeSlide.nextElementSibling.nextElementSibling) {
+        slideShow.append(slideShow.firstElementChild);
+        slideShow.style.transition = 'none';
+        slideCalc();
+    }
+}
 
 function slideCalc() {
 
@@ -30,9 +42,11 @@ function slideCalc() {
     slideShow.style.marginLeft = (computedWidth * previousSiblings * (-1)
                                 + 20 * document.documentElement.clientWidth / 100) + 'px';
     //20 - is (100 - 60) / 2 - where 60 is a width of slide in vw - if changing need to change here.
+    
 }
 
 function slideChange(dir) {
+    slideShow.style.transition = 'margin 0.5s ease-out';
     checkSiblings();
     let targetSlide = dir == 'left' ? activeSlide.nextElementSibling : activeSlide.previousElementSibling;
     targetSlide.classList.add('slider__slide_active');
@@ -50,5 +64,6 @@ function slideChange(dir) {
 
 window.onload = slideCalc;
 window.onresize = slideCalc;
+slideShow.addEventListener('transitionend', checkPrev);
 
 
