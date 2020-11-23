@@ -2,6 +2,19 @@
 let activeSlide = document.querySelector('.slider__slide_active');
 let slideShow = document.querySelector('.slider__slideshow');
 let slides = document.querySelectorAll('.slider__slide')
+let computedMargin;
+function calcMargin() {
+    let rect1, rect2;
+    if (activeSlide.nextElementSibling && activeSlide.nextElementSibling.nextElementSibling) {
+        rect1 = activeSlide.nextElementSibling.getBoundingClientRect();
+        rect2 = activeSlide.nextElementSibling.nextElementSibling.getBoundingClientRect();
+    } else if (activeSlide.nextElementSibling && activeSlide.nextElementSibling.nextElementSibling) {
+        rect2 = activeSlide.previousElementSibling.getBoundingClientRect();
+        rect1 = activeSlide.previousElementSibling.previousElementSibling.getBoundingClientRect();
+    } else return parseInt(getComputedStyle(document.querySelector('.slider__slide')).marginRight)
+    
+    return rect2.left - rect1.right;
+}
 
 
 function checkSiblings() {
@@ -36,12 +49,11 @@ function slideCalc() {
         slide = slide.previousElementSibling;
     }
 
-    let computedStyle = getComputedStyle(document.querySelector('.slider__slide'));
-    let computedWidth = parseInt(computedStyle.width) + parseInt(computedStyle.marginRight);
-
+    let slideWidth = document.querySelector('.slider__slide:not(.slider__slide_active)').getBoundingClientRect().width;
+   // let computedWidth = parseInt(getComputedStyle(document.querySelector('.slider__slide')).marginRight) + slideWidth;
+    let computedWidth = computedMargin + slideWidth;
     slideShow.style.marginLeft = (computedWidth * previousSiblings * (-1)
-                                + 20 * document.documentElement.clientWidth / 100) + 'px';
-    //20 - is (100 - 60) / 2 - where 60 is a width of slide in vw - if changing need to change here.
+                                + ((document.documentElement.clientWidth - slideWidth) / 2)) + 'px';
     
 }
 
@@ -53,6 +65,8 @@ function slideChange(dir) {
     activeSlide.classList.remove('slider__slide_active');
     activeSlide = targetSlide;
     slideCalc();
+    console.log(activeSlide.getBoundingClientRect());
+    console.log(document.documentElement.getBoundingClientRect());
 }
  let arrowLeft = document.querySelector('.slider__arrow_left');
  document.addEventListener('click', function(event) {
@@ -62,8 +76,8 @@ function slideChange(dir) {
  })
  
 
-window.onload = slideCalc;
-window.onresize = slideCalc;
+window.onload = () => {computedMargin = calcMargin(); slideCalc()};
+window.onresize = () => {computedMargin = calcMargin(); slideCalc()};
 slideShow.addEventListener('transitionend', checkPrev);
 
 
