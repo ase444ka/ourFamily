@@ -1,8 +1,44 @@
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+      @return $number / ($number * 0 + 1);
+    }
+  
+    @return $number;
+  }
+  
+  @function calcFluidFontSize($f-min, $f-max, $w-min, $w-max, $units: px) {
+    $f-min: strip-unit($f-min);
+    $f-max: strip-unit($f-max);
+    $w-min: strip-unit($w-min);
+    $w-max: strip-unit($w-max);
+  
+    $k: ($f-max - $f-min)/($w-max - $w-min);
+    $b: $f-min - $k * $w-min;
+  
+    $b: $b + $units;
+  
+    @return calc( #{$k} * 100vw + #{$b} );
+  }
+
+@mixin fluidFontSize($f-min, $f-max, $w-min, $w-max, $fallback: false) {
+    @if ($fallback) {
+      font-size: $fallback;
+    }
+    font-size: calcFluidFontSize($f-min, $f-max, $w-min, $w-max, px);
+  
+  }
+
 .header {
     background-color: chocolate;
     display: flex;
-    padding: 2rem 0 10rem 0;
     flex-direction: column;
+    padding: 3vh 0 12vh 0;
+    @media (max-width: 750px) {
+        padding-bottom: 14vh;
+    }
+    @media (max-width: 450px) {
+        padding-bottom: 18vh;
+    }
     align-items: center;
     color: white;
     font-family: 'Alegreya Sans';
@@ -10,12 +46,12 @@
     &__title {
         margin: 0;
         text-transform: uppercase;
-        font-size: 4rem;
+        @include fluidFontSize(20px, 60px, 480px, 1280px, 18px);
     }
     &__slogan {
         margin: 0;
         line-height: 0.6;
-        font-size: 2rem;
+        @include fluidFontSize(8px, 24px, 480px, 1280px, 18px);
         letter-spacing: 0.192em;
     }
 }
