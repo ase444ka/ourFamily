@@ -1,0 +1,23 @@
+mixin personCard(person) 
+    -let options = require(`Blocks/personCard/json/${person}.json`)
+    -let [name, surname] = options.name.split(' ');
+    -let notes = `Возраст: ${options.notes.age} лет \/ пол: ${options.notes.gender}
+    -\/ цвет глаз: ${options.notes.eyes}`
+    .personCard
+        h1.personCard__header
+            span= name
+            br
+            span= surname
+        img(src = require(`Blocks/personCard/images/${person}.jpg`)).personCard__image 
+        .personCard__quote= options.quote
+        -let articles= options.articles;
+        each article in articles
+            .personCard__article
+                h2.personCard__article-header= article.header
+                each paragraph in article.paragraphs
+                    p.personCard__article-body= paragraph
+        .personCard__notes
+            strong Итого:
+            = notes
+
+

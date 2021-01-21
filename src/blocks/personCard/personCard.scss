@@ -1,0 +1,91 @@
+
+.personCard {
+    overflow: hidden;
+    border-radius: 5px;
+    font-family: 'Fira Sans';
+    width: 89%;
+    margin: auto;
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns:repeat(3, 1fr);
+    grid-template-rows: 4.5fr 4.5fr 1fr;
+    background-color: #eeeeee;
+    &__header {
+        position: relative;
+        grid-row: 1/4;
+        grid-column: 1/2;
+        text-transform: uppercase;
+        letter-spacing: 1rem;
+        & span {
+            background: #b3efc5;
+        }
+        & :last-child {
+            margin-left: 5px;
+        }
+        & span {
+            position: absolute;
+            right: 0;
+            top: 1rem ;
+            font-size: 2rem;
+            padding: 2rem ;
+            &:last-child {
+                top: 5rem;
+                right: 3rem;
+            }
+
+        }
+        
+    }
+    &__image {
+        width: 100%;
+        grid-row: 1/4;
+        grid-column: 1 /2;
+    }
+    &__quote {
+        grid-row: 1/4;
+        grid-column: 1/2;
+        width: 95%;
+        margin-bottom: 2.5%;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        align-self: flex-end;
+        position: relative;
+        padding: 3rem;
+        box-sizing: border-box;
+        text-align: center;
+        justify-self: center;
+        font-size: 2rem;
+        &:before {
+            content: "“";
+            position: absolute;
+            top: 5px;
+            left: 15px;
+            font-size: 5rem;
+        }
+    }
+
+    &__article {
+        background: #F5F5F5;
+        margin: 1rem;
+        padding: 1rem 2rem 1rem 1rem;
+        height: max-content;
+    }
+    &__article-header {
+        text-transform: capitalize;
+    }
+    &__notes {
+        border-top: 1px solid #f5f5f5;
+        grid-row: 3/4;
+        grid-column: 2/4;
+        padding: 2rem 1rem 0;
+        letter-spacing: 0.1rem;
+        font-size: 1.1rem;
+        & strong {
+            text-transform: uppercase;
+            margin-right: 2rem;
+        }
+    }
+    
+} 
+
+

@@ -1,5 +1,6 @@
 include ./blocks/header/header
 include ./blocks/slider/slider
+include ./blocks/personCard/personCard
 doctype html
 html(lang='ru')
     head
@@ -7,5 +8,10 @@ html(lang='ru')
         meta(content='width=device-width, initial-scale=1.0' name='viewport')
         title Ох уж эти Истомины!
     body
+        
         +header("Наша семья", "Рома, Тима, Степа, я - очень дружная семья!")
         +slider()
+        +personCard("asya")
+        +personCard("roma")
+        +personCard("tima")
+        +personCard("stepa")
